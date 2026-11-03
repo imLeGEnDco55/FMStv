@@ -11,7 +11,7 @@ test('artwork-first home: symbol-only import, landscape covers, selection, volum
  await (await chooser).setFiles({name:'invalid.zip',mimeType:'application/zip',buffer:Buffer.from('invalid')});
  await expect(page.getByRole('alert')).toBeVisible();await page.getByRole('button',{name:'Cerrar error'}).click();
  for(const id of [1,2]){
-  await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement,id)=>{
+  await expect(page.locator('input[type=file]')).toBeEnabled();await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement,id)=>{
    // @ts-expect-error Vite browser fixture.
    const {cassetteFixture}=await import('/tests/browser/fixtures.ts');
    // @ts-expect-error Vite resolves bare browser module.

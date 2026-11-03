@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 const out=process.env.FMS_SCREENSHOT_DIR??'evidence/redesign';
 test('intro cues occupy the four beats of bar four, holds TIEMPO through the first second, then reveals 59',async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/');
- await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
+ await expect(page.locator('input[type=file]')).toBeEnabled();await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
   // @ts-expect-error Vite source module.
   const {demoZip}=await import('/src/cassette/demo.ts');const f=await demoZip(80),transfer=new DataTransfer();transfer.items.add(new File([await f.arrayBuffer()],'002 CHUTYMECHA.zip'));input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));
  });

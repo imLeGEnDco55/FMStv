@@ -20,7 +20,7 @@ test('responsive stage uses the viewport and preserves readable, separate heroes
  await page.addInitScript(()=>{Math.random=()=>.65;});
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.setViewportSize(sizes[0]);await page.goto('/');
- await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
+ await expect(page.locator('input[type=file]')).toBeEnabled();await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
   // @ts-expect-error Vite source module.
   const {demoZip}=await import('/src/cassette/demo.ts');const file=await demoZip(80),dt=new DataTransfer();dt.items.add(new File([await file.arrayBuffer()],'002 CHUTYMECHA.zip'));input.files=dt.files;input.dispatchEvent(new Event('change',{bubbles:true}));
  });

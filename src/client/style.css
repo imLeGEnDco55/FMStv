@@ -235,3 +235,17 @@ h1,.timer,.type-cover b{font-family:Impact,'Arial Narrow','Barlow Condensed',san
 .showing-cue .preparing {min-height:0;padding:12px 0}
 .showing-cue h1.cue {font-size:min(15vw,18svh,200px);color:var(--accent);line-height:1.05;letter-spacing:0;animation:none}
 .showing-cue h1.cue-number {font-size:min(56vw,43svh,440px)}
+
+/* Local library controls stay separate from the cover selection button. */
+.home .cassette-item {position:relative;min-width:0}
+.delete-cassette {position:absolute;top:10px;right:10px;width:40px;height:40px;display:grid;place-items:center;background:#090b09e8;border:1px solid #d8dbc54d;color:#d7d9cd;z-index:2;border-radius:3px}
+.delete-cassette svg {width:21px;height:21px;fill:currentColor}
+.delete-cassette:hover {color:#ff8179;border-color:#d94c40;background:#3f100fed}
+.delete-dialog {width:min(90vw,420px);border:1px solid #777b56;padding:28px;color:#eeede5;background:#10130f;box-shadow:0 24px 80px #000b}
+.delete-dialog::backdrop {background:#000b;backdrop-filter:blur(4px)}
+.delete-dialog h2 {margin:0 0 16px;font:400 30px Impact,sans-serif}
+.delete-dialog p {font-size:14px;line-height:1.5;color:#adb39d}
+.delete-dialog .delete-name {color:var(--accent);overflow-wrap:anywhere;font-weight:700}
+.delete-dialog>div {display:flex;justify-content:flex-end;gap:12px;margin-top:26px}
+.delete-dialog button {min-height:44px;padding:12px 16px;background:#282d22;color:#eeede5;font-size:11px;letter-spacing:1px;font-weight:800}
+.delete-dialog .confirm-delete {color:#ffaaa1;border:1px solid #a13d34;background:#571611}

@@ -36,7 +36,7 @@ test('redesign: responsive stage, original logo, word countdown, fade and comple
 
 test('cassette title and source number survive the redesign; stop returns to selection',async({page})=>{
  await page.goto('/');
- await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
+ await expect(page.locator('input[type=file]')).toBeEnabled();await page.locator('input[type=file]').evaluate(async(input:HTMLInputElement)=>{
   // @ts-expect-error Vite browser module.
   const {demoZip}=await import('/src/cassette/demo.ts');
   const file=await demoZip(80),transfer=new DataTransfer();

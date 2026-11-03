@@ -60,7 +60,7 @@ test('real turn runs from user gesture through complete outro',async({page})=>{
 });
 test('mobile import error, selection lock and explicit stop',async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/');
- await page.locator('input[type=file]').setInputFiles({name:'bad.zip',mimeType:'application/zip',buffer:Buffer.from('invalid')});await expect(page.getByRole('alert')).toBeVisible();
+ await expect(page.locator('input[type=file]')).toBeEnabled();await page.locator('input[type=file]').setInputFiles({name:'bad.zip',mimeType:'application/zip',buffer:Buffer.from('invalid')});await expect(page.getByRole('alert')).toBeVisible();
  await openManager(page);await page.getByRole('button',{name:'DEMO 93.532 BPM',exact:true}).click();await page.getByRole('button',{name:'CERRAR',exact:true}).click();await expect(page.getByRole('button',{name:'EMPEZAR MINUTO'})).toBeEnabled();
  await page.screenshot({path:'evidence/mobile.png',fullPage:true});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

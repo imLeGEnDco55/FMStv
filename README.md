@@ -6,7 +6,7 @@ Interfaz vertical y adaptable para minutos de freestyle. Incluye dos cassettes d
 
 ## Probar
 
-Selecciona una carátula y pulsa el icono de reproducción. El + permite importar un cassette ZIP propio. El audio empieza únicamente al pulsar reproducción. Los archivos importados se procesan localmente en el navegador y no se envían a ningún servidor; la biblioteca de esta versión dura mientras la página siga abierta.
+Selecciona una carátula y pulsa el icono de reproducción. El + permite importar un cassette ZIP propio. El audio empieza únicamente al pulsar reproducción. Los archivos importados se procesan localmente en el navegador y no se envían a ningún servidor; el ZIP completo y la selección se guardan en IndexedDB y se restauran al volver a abrir la app.
 
 PREPARADO ocupa los tres primeros compases de la intro. La cuarta barra muestra 3, 2, 1 y TIEMPO, un tiempo cada uno. TIEMPO permanece el primer segundo del verso y el primer número visible es 59. Las palabras cambian cada 10 segundos. A los 60 segundos el reloj desaparece y el último bloque de audio termina antes del Outro completo.
 
@@ -47,3 +47,12 @@ Las rutas relativas permiten servir el demo en `/FMStv/`. El logo, las texturas 
 WAV PCM: INTRO, uno o más VERSO, OUTRO y BREAK1 opcional; COVER.png/jpg/webp opcional. Se aceptan carpetas contenedoras y alias comunes. Intro, versos y break representan cuatro compases. La app conserva los audios completos y respeta las regiones musicales cuando están presentes.
 
 Proyecto independiente, sin afiliación oficial con FMS ni Urban Roosters. El logotipo aportado como referencia conserva los derechos de sus titulares. Las texturas vectoriales y los cassettes sintéticos del demo se generan como parte de este proyecto.
+
+
+## Biblioteca local y borrado
+
+Cada ZIP se guarda completo en IndexedDB, con un nombre de base de datos propio de esta app y ruta. El audio y la carátula se reconstruyen desde el ZIP al abrir. La app no establece caducidad ni borra automáticamente cassettes guardados. Solo añade los demos al inicializar por primera vez; borrarlos, incluso ambos, no los reinstala al recargar o actualizar.
+
+La papelera de cada cover abre una confirmación con el nombre del cassette. Cancelar conserva el archivo. Borrar confirma una transacción local antes de retirar la tarjeta. Si no hay espacio, la app muestra el error y no afirma que el archivo se haya guardado. La selección también se conserva.
+
+Se solicita almacenamiento persistente mediante StorageManager cuando el navegador lo admite. La concesión depende del navegador: borrar datos del sitio, usar modo privado o algunas políticas de limpieza pueden eliminar el almacenamiento. Los datos se guardan por navegador/perfil y dispositivo; localhost y GitHub Pages tienen bibliotecas separadas. No se suben cassettes a GitHub ni a un servidor.

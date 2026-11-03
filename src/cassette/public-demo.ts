@@ -1,7 +1,5 @@
 import JSZip from 'jszip';
 import {demoZip} from './demo';
-import {importCassette} from './import';
-import type {Cassette} from './types';
 
 // Public demo media is synthesized locally: no private music or cover art.
 async function cover(bpm:number):Promise<ArrayBuffer> {
@@ -18,15 +16,12 @@ async function cover(bpm:number):Promise<ArrayBuffer> {
   const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('No se pudo crear la portada demo.')),'image/png'));
   return blob.arrayBuffer();
 }
-export async function publicDemoCassettes(context:AudioContext):Promise<Cassette[]> {
-  const items:Cassette[]=[];
-  try {
-    for(const bpm of [80,93.532]){
-      const original=await demoZip(bpm),zip=await JSZip.loadAsync(await original.arrayBuffer());
-      zip.file('COVER.png',await cover(bpm));
-      const file=new File([await zip.generateAsync({type:'arraybuffer'})],`DEMO ${bpm} BPM.zip`,{type:'application/zip'});
-      const c=await importCassette(file,context);c.demo=true;items.push(c);
-    }
-    return items;
-  } catch(e) {for(const c of items)if(c.cover)URL.revokeObjectURL(c.cover);throw e;}
+export async function publicDemoFiles():Promise<File[]> {
+  const files:File[]=[];
+  for(const bpm of [80,93.532]){
+    const original=await demoZip(bpm),zip=await JSZip.loadAsync(await original.arrayBuffer());
+    zip.file('COVER.png',await cover(bpm));
+    files.push(new File([await zip.generateAsync({type:'arraybuffer'})],`DEMO ${bpm} BPM.zip`,{type:'application/zip'}));
+  }
+  return files;
 }
